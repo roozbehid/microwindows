@@ -1913,10 +1913,14 @@ StretchBlt(HDC hdcDest, int nXOriginDest, int nYOriginDest, int nWidthDest,
 	}
 	/* if dst screen DC, convert coords and set clipping*/
 	/* FIXME: if dest is also screen, src clipping will be overwritten*/
+	
 	if(!MwIsMemDC(hdcDest) && MwIsClientDC(hdcDest)) {
 		if(!(hwnd = MwPrepareDC(hdcDest)))
 			return FALSE;
 		ClientToScreen(hwnd, &dst);
+	}
+	else {
+		MwPrepareDC(hdcDest);
 	}
 
 	if (nWidthDest == nWidthSrc && nHeightDest == nHeightSrc) {
