@@ -107,7 +107,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='WasmRel|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -213,7 +213,7 @@
       <PreprocessorDefinitions>HAVE_BMP_SUPPORT;HAVE_MMAP=0;WINEXTRA;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\..\..\..\..\include;..\..\..\..\winextra</AdditionalIncludeDirectories>
-      <AdditionalOptions>-s USE_FREETYPE=1  -Wno-ignored-attributes %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> -s BINARYEN_TRAP_MODE=clamp -s USE_FREETYPE=1  -Wno-ignored-attributes %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -274,7 +274,7 @@
       <PreprocessorDefinitions>HAVE_MMAP=0;WINEXTRA;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\..\..\..\..\include;..\..\..\..\winextra</AdditionalIncludeDirectories>
-      <AdditionalOptions>-s USE_FREETYPE=1  -Wno-ignored-attributes %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> -s BINARYEN_TRAP_MODE=clamp -s USE_FREETYPE=1  -Wno-ignored-attributes %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

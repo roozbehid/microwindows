@@ -71,17 +71,6 @@
     <ClCompile Include="..\..\..\..\winextra\stub_winuser.c" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mwdrivers\mwdrivers.vcxproj">
-      <Project>{ebf9534c-a5b5-4366-b097-83238855f836}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\mwengine\mwengine.vcxproj">
-      <Project>{20f225bc-09b0-4b92-bf44-76b9d00e00bd}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\mwfonts\mwfonts.vcxproj">
-      <Project>{6dac951d-40fb-4b3a-8e21-d42a2399d75c}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\..\..\include\convblit.h" />
     <ClInclude Include="..\..\..\..\..\include\device.h" />
     <ClInclude Include="..\..\..\..\..\include\genfont.h" />
@@ -111,6 +100,17 @@
     <ClInclude Include="..\..\..\..\..\include\wintern.h" />
     <ClInclude Include="..\..\..\..\..\include\wintools.h" />
     <ClInclude Include="..\..\..\..\..\include\winuser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mwdrivers\mwdrivers.vcxproj" Condition="!$(Configuration.Contains('Wasm'))">
+      <Project>{ebf9534c-a5b5-4366-b097-83238855f836}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\mwengine\mwengine.vcxproj" Condition="!$(Configuration.Contains('Wasm'))">
+      <Project>{20f225bc-09b0-4b92-bf44-76b9d00e00bd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\mwfonts\mwfonts.vcxproj" Condition="!$(Configuration.Contains('Wasm'))">
+      <Project>{6dac951d-40fb-4b3a-8e21-d42a2399d75c}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCTargetsPath Condition="'$(DesignTimeBuild)'!='true' AND $(Configuration.Contains('Wasm'))">./</VCTargetsPath>
@@ -148,7 +148,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='WasmRel|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -256,6 +256,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;MWIN_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\..\..\..\..\include;..\..\..\..\winextra</AdditionalIncludeDirectories>
+      <AdditionalOptions> -s BINARYEN_TRAP_MODE=clamp  -Wno-ignored-attributes %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -319,6 +320,7 @@
       <PreprocessorDefinitions>NDEBUG;MWIN_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\..\..\..\..\include;..\..\..\..\winextra</AdditionalIncludeDirectories>
+      <AdditionalOptions> -s BINARYEN_TRAP_MODE=clamp  -Wno-ignored-attributes %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
