@@ -1939,7 +1939,6 @@ MwHandleTimers(void)
 	while (tm != NULL) {
 		if (!tm->bRemove) {
 			if (GetTickCount() >= tm->dwClockExpires) {
-
 				/* call timer function or post timer message*/
 				if (tm->lpTimerFunc)
 					tm->lpTimerFunc(tm->hwnd, WM_TIMER, tm->idTimer, dwTime);

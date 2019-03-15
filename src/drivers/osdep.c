@@ -50,7 +50,7 @@ GdError(const char *format, ...)
 #elif ANDROID
 	vsprintf(buf, format, args);
 	__android_log_print(ANDROID_LOG_INFO, "Microwindows", buf);
-#elif _MSC_VER
+#elif _MSC_VER && !EMSCRIPTEN
 	vsprintf(buf, format, args);
 	OutputDebugStringA(buf);
 #elif EMSCRIPTEN
@@ -177,7 +177,7 @@ GdPlatformInit(void)
 #endif
 }
 
-#if _MSC_VER
+#if _MSC_VER && !EMSCRIPTEN
 /* gettimeofday() for Windows*/
 
 int
